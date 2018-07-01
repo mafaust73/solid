@@ -1,4 +1,5 @@
 import { BspNode } from "./bspNode";
+import { POSITIVE_INFINITY, NEGATIVE_INFINITY } from "./vector";
 
 /**
  * A csg geometry.
@@ -9,6 +10,20 @@ export class CSG {
    */
   constructor(polygons) {
     this.polygons = polygons || [];
+  }
+
+  extends() {
+    let mi = POSITIVE_INFINITY;
+    let mx = NEGATIVE_INFINITY;
+
+    this.polygons.forEach(polygon => {
+      polygon.vertices.forEach(vertex => {
+        mi = mi.min(vertex.position);
+        mx = mx.max(vertex.position);
+      });
+    });
+    console.log(mi, mx);
+    return { min: mi, center: mx.plus(mi).dividedBy(2), max: mx };
   }
 
   /**
