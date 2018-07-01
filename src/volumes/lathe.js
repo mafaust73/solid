@@ -1,7 +1,14 @@
 import { CSG, Vector, Vertex, Polygon } from "../common/common";
 
-// TODO, not finished
+/**
+ * A rotational volume.
+ */
 export class Lathe extends CSG {
+  /**
+   * @param {Path} path the path in the xy plane
+   * @param {Number} resolution the path resolution
+   * @param {Number} slices the number of slices
+   */
   constructor(path, resolution, slices) {
     super();
 
