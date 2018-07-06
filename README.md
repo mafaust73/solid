@@ -8,8 +8,8 @@ New features:
 
 - ECMA 2015 syntax
 - BSP plane selection algorithm changed
-- New volume primitives
-- Geometry exporters
+- New volume primitives (Lathe, Twist)
+- Geometry exporters (Wavefront, PoV-Ray)
 - Unit tests with [Jest](http://jestjs.io/)
 
 This is ongoing work and by the way, my first GitHub project.
