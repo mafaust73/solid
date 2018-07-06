@@ -15,6 +15,7 @@ describe("path", () => {
       { normal: { x: 0, y: 1, z: 0 }, position: { x: 1, y: 1, z: 0 } },
       { normal: { x: -1, y: 0, z: 0 }, position: { x: -1, y: 1, z: 0 } }
     ]);
+    expect(path.points("xz")).toEqual(path.points());
     expect(path.points("xz")).toEqual([
       { normal: { x: 0, y: 0, z: -1 }, position: { x: -1, y: 0, z: -1 } },
       { normal: { x: 1, y: 0, z: 0 }, position: { x: 1, y: 0, z: -1 } },

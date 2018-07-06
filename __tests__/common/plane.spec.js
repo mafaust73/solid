@@ -11,7 +11,7 @@ describe("plane", () => {
 
     let p = new Plane(UNIT_X, 1);
     expect(p).toEqual({ normal: { x: 1, y: 0, z: 0 }, w: 1 });
-    expect(p.dump()).toBe("{x=1, y=0, z=0, w=1}");
+    expect(p.dump()).toBe("PLANE (1, 0, 0)@1");
 
     let plane = Plane.fromPoints(a, b, c);
     expect(plane).toEqual({ normal: { x: 0, y: -1, z: 0 }, w: -0 });

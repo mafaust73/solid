@@ -17,8 +17,12 @@ export class Plane {
     this.w = w;
   }
 
+  /**
+   * Returns a textural representation of this plane.
+   * @returns {String}
+   */
   dump() {
-    return `{x=${this.normal.x}, y=${this.normal.y}, z=${this.normal.z}, w=${this.w}}`;
+    return `PLANE (${this.normal.x}, ${this.normal.y}, ${this.normal.z})@${this.w}`;
   }
 
   /**
@@ -36,10 +40,17 @@ export class Plane {
     return new Plane(n, n.dot(a));
   }
 
+  /**
+   * Returns a digital clone of this plane.
+   * @returns {Plane}
+   */
   clone() {
     return new Plane(this.normal.clone(), this.w);
   }
 
+  /**
+   * Flips the plane.
+   */
   flip() {
     this.normal = this.normal.negated();
     this.w = -this.w;
@@ -106,10 +117,10 @@ export class Plane {
         }
 
         if (f.length >= 3) {
-          front.push(new Polygon(f, polygon.shared));
+          front.push(new Polygon(f, polygon.material));
         }
         if (b.length >= 3) {
-          back.push(new Polygon(b, polygon.shared));
+          back.push(new Polygon(b, polygon.material));
         }
 
         break;

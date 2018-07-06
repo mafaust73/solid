@@ -12,6 +12,11 @@ export class CSG {
     this.polygons = polygons || [];
   }
 
+  /**
+   * Calculate the extends of the csg object.
+   * @returns {Object}
+   * @example { min: Vector, center: Vector, max: Vector }
+   */
   extends() {
     let mi = POSITIVE_INFINITY;
     let mx = NEGATIVE_INFINITY;
@@ -22,7 +27,7 @@ export class CSG {
         mx = mx.max(vertex.position);
       });
     });
-    console.log(mi, mx);
+
     return { min: mi, center: mx.plus(mi).dividedBy(2), max: mx };
   }
 
@@ -33,6 +38,11 @@ export class CSG {
     return new CSG(this.polygons.map(p => p.clone()));
   }
 
+  /**
+   * Perform a subtract operation.
+   * @param {CSG} csg the csg object to be subtracted
+   * @returns {CSG}
+   */
   subtract(csg) {
     let a = new BspNode(this.clone().polygons);
     let b = new BspNode(csg.clone().polygons);
@@ -43,6 +53,7 @@ export class CSG {
     b.invert();
     b.clipTo(a);
     b.invert();
+    // Why these two last steps?
     a.build(b.allPolygons());
     a.invert();
     return new CSG(a.allPolygons());

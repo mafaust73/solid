@@ -11,7 +11,6 @@ export class Povray {
     let result = "";
 
     let e = csg.extends();
-    console.log(e);
     let cam = e.max
       .minus(e.center)
       .times(2)

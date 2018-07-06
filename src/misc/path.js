@@ -60,6 +60,10 @@ export class Path {
     return this;
   }
 
+  reverse() {
+    this.d = this.d.reverse();
+  }
+
   /**
    * Return the path points as 3d vertices with normals.
    * @param {String} [axes] the optional 3d plane (default: xz)
