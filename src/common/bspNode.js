@@ -32,7 +32,7 @@ export class BspNode {
       let t0 = Date.now();
       this.build(polygons);
       let t1 = Date.now();
-      console.log(t1 - t0, "ms");
+      //console.log(t1 - t0, "ms");
     }
   }
 

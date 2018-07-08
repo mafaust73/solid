@@ -53,7 +53,6 @@ export class CSG {
     b.invert();
     b.clipTo(a);
     b.invert();
-    // Why these two last steps?
     a.build(b.allPolygons());
     a.invert();
     return new CSG(a.allPolygons());

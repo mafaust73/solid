@@ -60,6 +60,9 @@ export class Path {
     return this;
   }
 
+  /**
+   * Reverse the path order
+   */
   reverse() {
     this.d = this.d.reverse();
   }
