@@ -10,7 +10,7 @@ export class Twist extends CSG {
     for (let i = 1; i < stacks; i++) {
       let t = i / stacks;
       let h = t * length;
-      let alpha = t * aspect * Math.PI * 2.0;
+      let alpha = ((h * aspect) / 180) * Math.PI;
 
       let p1 = points.map(vx => {
         let p = vx.position.rotateY(alpha);

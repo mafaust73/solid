@@ -1,6 +1,7 @@
 import { CSG, Vector, ZERO, ONE, UNIT_Y } from "../src/common/common";
 import { Lathe, Twist, Cylinder, Cone, Sphere, Cube } from "../src/volumes/volumes";
 import { Path } from "../src/misc/path";
+import { Point } from "../src/misc/point";
 import { Povray } from "../src/io/povray";
 import fs from "fs";
 
@@ -8,6 +9,26 @@ let povray = new Povray();
 
 function saveAs(name, csg) {
   fs.writeFileSync(`./scenes/${name}.pov`, povray.write(csg));
+}
+
+// https://schneidwerkzeugmechaniker.info/mediawiki/images/thumb/3/3a/Bohrer3a.jpg/600px-Bohrer3a.jpg
+function drill(d, rd, b) {
+  d = d || 18;
+  rd = rd || 17;
+  b = b || 2;
+
+  return new Path()
+    .moveTo(new Point(-b / 2, d / 2))
+    .lineTo(new Point(b / 2, d / 2))
+    .lineTo(new Point(b / 2, rd / 2))
+    .arcTo(new Point(rd / 2, 0), new Point(0, 0), true)
+    .arcTo(new Point(b / 2, 0), new Point((rd + b) / 4, 0), false)
+    .lineTo(new Point(b / 2, -d / 2))
+    .lineTo(new Point(-b / 2, -d / 2))
+    .lineTo(new Point(-b / 2, -rd / 2))
+    .arcTo(new Point(-rd / 2, 0), new Point(0, 0), true)
+    .arcTo(new Point(-b / 2, 0), new Point(-(rd + b) / 4), false)
+    .close();
 }
 
 describe("examples", () => {
@@ -51,12 +72,7 @@ describe("examples", () => {
   });
 
   test("twist", () => {
-    let path = new Path()
-      .moveTo(-1, 1)
-      .lineTo(1, 1)
-      .lineTo(1, -1)
-      .lineTo(-1, -1);
-    let csg = new Twist(path, 0.5, 10, 10, 32);
+    let csg = new Twist(drill(18, 17, 2), 5, 80, 20, 64);
     saveAs("twist", csg);
   });
 
