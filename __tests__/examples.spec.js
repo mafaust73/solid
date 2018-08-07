@@ -54,17 +54,17 @@ describe("examples", () => {
 
   test("lathe", () => {
     let path = new Path()
-      .moveTo(0, 0)
-      .lineTo(2, 0)
-      .lineTo(2, 0.25)
-      .lineTo(0.25, 0.4)
-      .lineTo(0.25, 4)
-      .lineTo(2, 4.5)
-      .lineTo(2.5, 5.0)
-      .lineTo(3, 6)
-      .lineTo(2.75, 6)
-      .lineTo(1.5, 4.4)
-      .lineTo(0, 5.2);
+      .moveTo(new Point(0, 0))
+      .lineTo(new Point(2, 0))
+      .lineTo(new Point(2, 0.25))
+      .lineTo(new Point(0.25, 0.4))
+      .lineTo(new Point(0.25, 4))
+      .lineTo(new Point(2, 4.5))
+      .lineTo(new Point(2.5, 5.0))
+      .lineTo(new Point(3, 6))
+      .lineTo(new Point(2.75, 6))
+      .lineTo(new Point(1.5, 4.4))
+      .lineTo(new Point(0, 5.2));
 
     path.reverse();
     let csg = new Lathe(path, 10, 32);

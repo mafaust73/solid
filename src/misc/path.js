@@ -72,7 +72,7 @@ export class Path {
    * Reverse the path order
    */
   reverse() {
-    this.d = this.d.reverse();
+    this.d = [this.d[0]].concat(this.d.slice(1).reverse());
   }
 
   /**

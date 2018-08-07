@@ -13,17 +13,17 @@ describe("path", () => {
       .close();
 
     expect(path.points("xy")).toEqual([
-      { normal: { x: 0, y: -1, z: 0 }, position: { x: -1, y: -1, z: 0 } },
-      { normal: { x: 1, y: 0, z: 0 }, position: { x: 1, y: -1, z: 0 } },
-      { normal: { x: 0, y: 1, z: 0 }, position: { x: 1, y: 1, z: 0 } },
-      { normal: { x: -1, y: 0, z: 0 }, position: { x: -1, y: 1, z: 0 } }
+      { normal: { x: 0, y: 1, z: 0 }, position: { x: -1, y: -1, z: 0 } },
+      { normal: { x: -1, y: 0, z: 0 }, position: { x: 1, y: -1, z: 0 } },
+      { normal: { x: 0, y: -1, z: 0 }, position: { x: 1, y: 1, z: 0 } },
+      { normal: { x: 1, y: 0, z: 0 }, position: { x: -1, y: 1, z: 0 } }
     ]);
     expect(path.points("xz")).toEqual(path.points());
     expect(path.points("xz")).toEqual([
-      { normal: { x: 0, y: 0, z: -1 }, position: { x: -1, y: 0, z: -1 } },
-      { normal: { x: 1, y: 0, z: 0 }, position: { x: 1, y: 0, z: -1 } },
-      { normal: { x: 0, y: 0, z: 1 }, position: { x: 1, y: 0, z: 1 } },
-      { normal: { x: -1, y: 0, z: 0 }, position: { x: -1, y: 0, z: 1 } }
+      { normal: { x: 0, y: 0, z: 1 }, position: { x: -1, y: 0, z: -1 } },
+      { normal: { x: -1, y: 0, z: 0 }, position: { x: 1, y: 0, z: -1 } },
+      { normal: { x: 0, y: 0, z: -1 }, position: { x: 1, y: 0, z: 1 } },
+      { normal: { x: 1, y: 0, z: 0 }, position: { x: -1, y: 0, z: 1 } }
     ]);
 
     expect(() => new Path().lineTo(new Point(1, 1))).toThrow("Currently not positioned. Use moveTo first!");
@@ -36,23 +36,19 @@ describe("path", () => {
       .lineTo(new Point(1, 0))
       .lineTo(new Point(0, 1));
 
+    expect(path.d).toEqual([{ cmd: "m", pt: { u: 0, v: 0 } }, { cmd: "l", pt: { u: 1, v: 0 } }, { cmd: "l", pt: { u: 0, v: 1 } }]);
     expect(path.points("xy")).toEqual([
-      { normal: { x: 0, y: -1, z: 0 }, position: { x: 0, y: 0, z: 0 } },
-      { normal: { x: 0.7071067811865475, y: 0.7071067811865475, z: 0 }, position: { x: 1, y: 0, z: 0 } },
-      { normal: { x: -1, y: 0, z: 0 }, position: { x: 0, y: 1, z: 0 } }
+      { normal: { x: 0, y: 1, z: 0 }, position: { x: 0, y: 0, z: 0 } },
+      { normal: { x: -0.7071067811865475, y: -0.7071067811865475, z: 0 }, position: { x: 1, y: 0, z: 0 } },
+      { normal: { x: 1, y: 0, z: 0 }, position: { x: 0, y: 1, z: 0 } }
     ]);
     path.reverse();
+    expect(path.d).toEqual([{ cmd: "m", pt: { u: 0, v: 0 } }, { cmd: "l", pt: { u: 0, v: 1 } }, { cmd: "l", pt: { u: 1, v: 0 } }]);
     expect(path.points("xy")).toEqual([
-      { normal: { x: -0.7071067811865475, y: -0.7071067811865475, z: 0 }, position: { x: 0, y: 1, z: 0 } },
-      { normal: { x: 0.7071067811865475, y: 0.7071067811865475, z: 0 }, position: { x: 1, y: 0, z: 0 } }
+      { normal: { x: -1, y: 0, z: 0 }, position: { x: 0, y: 0, z: 0 } },
+      { normal: { x: 0.7071067811865475, y: 0.7071067811865475, z: 0 }, position: { x: 0, y: 1, z: 0 } },
+      { normal: { x: 0, y: -1, z: 0 }, position: { x: 1, y: 0, z: 0 } }
     ]);
-  });
-
-  test("arc", () => {
-    let path = new Path().moveTo(new Point(-100, 0)).arcTo(new Point(100, 0), new Point(0, 0), true);
-
-    fs.writeFileSync("path.svg", path.toSVG(32));
-    expect(path.length).toBe(1);
   });
 
   test("complex drill path", () => {
@@ -75,6 +71,6 @@ describe("path", () => {
       .close();
 
     fs.writeFileSync("drill.svg", path.toSVG(10));
-    expect(path.length).toBe(1);
+    expect(path.d.length).toBe(10);
   });
 });

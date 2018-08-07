@@ -6,7 +6,11 @@
   "scripts": {
     "test": "jest --coverage"
   },
-  "keywords": ["csg", "solid", "geometry"],
+  "keywords": [
+    "csg",
+    "solid",
+    "geometry"
+  ],
   "author": "Martin Faust",
   "license": "MIT",
   "devDependencies": {
@@ -16,5 +20,8 @@
     "jest": "^23.1.0",
     "webpack": "^4.12.1",
     "webpack-cli": "^3.0.8"
+  },
+  "jest": {
+    "testURL": "http://localhost/"
   }
 }

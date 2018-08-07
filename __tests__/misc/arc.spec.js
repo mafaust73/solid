@@ -49,7 +49,7 @@ describe("angle", () => {
   });
 });
 
-describe("arc", () => {
+describe.skip("arc", () => {
   test("cw", () => {
     let start = new Point(0, 100);
     let end = new Point(100, 0);
