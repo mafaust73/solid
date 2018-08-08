@@ -26,18 +26,25 @@ export function arc(start, center, end, cw, resolution) {
     throw `Lengths are different ${deltaStart.length()} !== ${deltaEnd.length()}. Never reaching the end!`;
   }*/
 
+  let negate = false;
   let startAngle = angle(deltaStart);
   let endAngle = angle(deltaEnd);
   let deltaAngle = endAngle - startAngle;
   if (endAngle < startAngle && cw !== true) {
+    negate = true;
     deltaAngle += 2 * Math.PI;
+  }
+
+  if (cw === false) {
+    negate = true;
   }
 
   let points = [];
   for (let i = 1; i <= resolution; i++) {
     let angle = (deltaAngle * i) / resolution;
     let uv = deltaStart.rotate(angle);
-    points.push(center.plus(uv));
+    let n = negate ? uv.unit().negated() : uv.unit();
+    points.push({ pt: center.plus(uv), n: n });
     angle += deltaAngle;
   }
 

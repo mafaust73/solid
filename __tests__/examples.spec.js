@@ -3,6 +3,7 @@ import { Lathe, Twist, Cylinder, Cone, Sphere, Cube } from "../src/volumes/volum
 import { Path } from "../src/misc/path";
 import { Point } from "../src/misc/point";
 import { Povray } from "../src/io/povray";
+import { Wavefront } from "../src/io/wavefront";
 import fs from "fs";
 
 let povray = new Povray();
@@ -73,7 +74,9 @@ describe("examples", () => {
 
   test("twist", () => {
     let csg = new Twist(drill(18, 17, 2), 5, 80, 20, 64);
+    csg = new Cube(new Vector(0, 40, 0), new Vector(9, 40, 9)).intersect(csg);
     saveAs("twist", csg);
+    fs.writeFileSync("twist.obj", new Wavefront().write(csg));
   });
 
   test("operations", () => {
