@@ -1,7 +1,7 @@
 import { Polygon } from "./polygon";
 
 /// the tolerance used by `splitPolygon()` to decide if a point is on the plane.
-const PLANE_EPSILON = 1e-5;
+const PLANE_EPSILON = 1e-6;
 
 const COPLANAR = 0;
 const FRONT = 1;
@@ -73,6 +73,7 @@ export class Plane {
     let polygonType = 0;
     let types = polygon.vertices.map(v => {
       let t = this.normal.dot(v.position) - this.w;
+
       let type = t < -PLANE_EPSILON ? BACK : t > PLANE_EPSILON ? FRONT : COPLANAR;
       polygonType |= type;
       return type;
@@ -81,7 +82,7 @@ export class Plane {
     // Put the polygon in the correct list, splitting it when necessary.
     switch (polygonType) {
       case COPLANAR:
-        (this.normal.dot(polygon.plane.normal) > 0 ? coplanarFront : coplanarBack).push(polygon);
+        (this.normal.dot(polygon.plane.normal) >= 0 ? coplanarFront : coplanarBack).push(polygon);
         break;
       case FRONT:
         front.push(polygon);
@@ -105,7 +106,7 @@ export class Plane {
             f.push(vi);
           }
           if (ti !== FRONT) {
-            b.push(ti != BACK ? vi.clone() : vi);
+            b.push(ti !== BACK ? vi.clone() : vi);
           }
 
           if ((ti | tj) === SPANNING) {

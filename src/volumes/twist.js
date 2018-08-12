@@ -1,4 +1,4 @@
-import { CSG, Vector, Vertex, Polygon } from "../common/common";
+import { CSG, Vector, Vertex, Polygon, UNIT_Y } from "../common/common";
 
 function transform(vx, h, alpha) {
   let p = vx.position.rotateY(alpha);
@@ -10,6 +10,15 @@ function transform(vx, h, alpha) {
 export class Twist extends CSG {
   constructor(path, aspect, length, resolution, stacks) {
     super();
+
+    // BOTTOM
+    let tris = path.triangulate("xz", resolution);
+    tris.forEach(t => {
+      let a = new Vertex(t[0], UNIT_Y.negated());
+      let b = new Vertex(t[1], UNIT_Y.negated());
+      let c = new Vertex(t[2], UNIT_Y.negated());
+      this.polygons.push(new Polygon([c, b, a]));
+    });
 
     let segments = path.segments("xz", resolution);
     for (let i = 1; i <= stacks; i++) {
@@ -30,5 +39,14 @@ export class Twist extends CSG {
         this.polygons.push(new Polygon([a, c, d]));
       });
     }
+
+    // TOP
+    let alpha = ((length * aspect) / 180) * Math.PI;
+    tris.forEach(t => {
+      let a = new Vertex(t[0], UNIT_Y);
+      let b = new Vertex(t[1], UNIT_Y);
+      let c = new Vertex(t[2], UNIT_Y);
+      this.polygons.push(new Polygon([transform(a, length, alpha), transform(b, length, alpha), transform(c, length, alpha)]));
+    });
   }
 }

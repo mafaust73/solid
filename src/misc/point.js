@@ -46,6 +46,10 @@ export class Point {
     return this.dividedBy(this.length());
   }
 
+  cross(a) {
+    return this.u * a.v - this.v * a.u;
+  }
+
   rotate(alpha) {
     let c = Math.cos(alpha);
     let s = Math.sin(alpha);

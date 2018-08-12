@@ -2,6 +2,7 @@ import { Vector } from "../common/vector";
 import { Vertex } from "../common/vertex";
 import { Point } from "./point";
 import { arc } from "./arc";
+import { triangulate } from "./triangulate";
 
 /**
  * Create a 3d vector of u-v in the axes plane.
@@ -183,6 +184,26 @@ export class Path {
     return segments;
   }
 
+  /**
+   * Return a triangulated set of the path.
+   * @param {String} [axes] the optional 3d plane (default: xz)
+   * @param {Number} [resolution] the optional resolution for approximating curves (default: 10)
+   * @returns {Array<Vector>}
+   */
+  triangulate(axes, resolution) {
+    axes = axes || "xz";
+    resolution = resolution || 10;
+
+    let pts = this.points(axes, resolution).map(vx => new Point(vx.position.x, vx.position.z));
+
+    return triangulate(pts).map(triangle => triangle.map(pt => vec(axes, pt.u, pt.v)));
+  }
+
+  /**
+   * Creates an svg representation of this path.
+   * @param {Number} [resolution] the optional resolution for approximating curves (default: 10)
+   * @return {String}
+   */
   toSVG(resolution) {
     let segs = this.segments("xy", resolution);
     let svg = "<svg>\n";

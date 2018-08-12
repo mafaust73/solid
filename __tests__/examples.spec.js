@@ -6,10 +6,12 @@ import { Povray } from "../src/io/povray";
 import { Wavefront } from "../src/io/wavefront";
 import fs from "fs";
 
-let povray = new Povray();
+const povray = new Povray();
+const wavefront = new Wavefront();
 
 function saveAs(name, csg) {
   fs.writeFileSync(`./scenes/${name}.pov`, povray.write(csg));
+  fs.writeFileSync(`./scenes/${name}.obj`, wavefront.write(csg));
 }
 
 // https://schneidwerkzeugmechaniker.info/mediawiki/images/thumb/3/3a/Bohrer3a.jpg/600px-Bohrer3a.jpg
@@ -74,9 +76,7 @@ describe("examples", () => {
 
   test("twist", () => {
     let csg = new Twist(drill(18, 17, 2), 5, 80, 20, 64);
-    csg = new Cube(new Vector(0, 40, 0), new Vector(9, 40, 9)).intersect(csg);
     saveAs("twist", csg);
-    fs.writeFileSync("twist.obj", new Wavefront().write(csg));
   });
 
   test("operations", () => {

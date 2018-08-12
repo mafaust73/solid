@@ -83,4 +83,18 @@ describe("path", () => {
     expect(path.d.length).toBe(11);
     expect(result).toMatchSnapshot();
   });
+
+  test("triangulate", () => {
+    let path = new Path()
+      .moveTo(new Point(-1, -1))
+      .lineTo(new Point(1, -1))
+      .lineTo(new Point(1, 1))
+      .lineTo(new Point(-1, 1))
+      .close();
+
+    expect(path.triangulate()).toEqual([
+      [{ x: -1, y: 0, z: -1 }, { x: 1, y: 0, z: -1 }, { x: 1, y: 0, z: 1 }],
+      [{ x: -1, y: 0, z: -1 }, { x: -1, y: 0, z: 1 }, { x: -1, y: 0, z: -1 }]
+    ]);
+  });
 });

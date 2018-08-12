@@ -1,10 +1,10 @@
 #!/bin/#!/bin/sh
-povray cube.pov
-povray sphere.pov
-povray cone.pov
-povray cylinder.pov
-povray lathe.pov
-povray twist.pov
-povray union.pov
-povray subtract.pov
-povray intersect.pov
+povray +A cube.pov
+povray +A sphere.pov
+povray +A cone.pov
+povray +A cylinder.pov
+povray +A lathe.pov
+povray +A twist.pov
+povray +A union.pov
+povray +A subtract.pov
+povray +A intersect.pov
