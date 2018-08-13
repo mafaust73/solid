@@ -1,4 +1,11 @@
+/**
+ * A two dimensional point in the u-v-space
+ */
 export class Point {
+  /**
+   * @param {Number} [u] u-coordinate (default 0)
+   * @param {Number} [v] v-coordinate (default 0)
+   */
   constructor(u, v) {
     this.u = u || 0;
     this.v = v || 0;

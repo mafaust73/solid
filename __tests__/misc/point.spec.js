@@ -63,4 +63,8 @@ describe("math", () => {
   test("dot", () => {
     expect(a.dot(b)).toBe(7);
   });
+
+  test("cross", () => {
+    expect(a.cross(b)).toBe(-4);
+  });
 });
