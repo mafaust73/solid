@@ -18,6 +18,23 @@ export class Plane {
   }
 
   /**
+   * Determine the sign of the point in respect to the plane.
+   * @params {Vector} pt point to test
+   * @returns {-1, 0, 1}
+   */
+  sign(p) {
+    let t = this.normal.dot(p) - this.w;
+
+    if (t < -PLANE_EPSILON) {
+      return -1;
+    } else if (t > PLANE_EPSILON) {
+      return 1;
+    }
+
+    return 0;
+  }
+
+  /**
    * Returns a textural representation of this plane.
    * @returns {String}
    */

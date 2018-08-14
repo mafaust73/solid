@@ -98,4 +98,12 @@ export class CSG {
     csg.polygons.forEach(p => p.flip());
     return csg;
   }
+
+  /**
+   * Creates a bsp node from this csg item.
+   * @return {BspNode}
+   */
+  bspNode() {
+    return new BspNode(this.clone().polygons);
+  }
 }

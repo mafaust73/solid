@@ -20,6 +20,15 @@ describe("plane", () => {
     expect(plane.clone()).toEqual({ normal: { x: 0, y: 1, z: 0 }, w: 0 });
   });
 
+  test("sign", () => {
+    // Clip plane is Z Axis
+    let plane = new Plane(UNIT_X, 0);
+
+    expect(plane.sign(new Vector(-10, 0, 0))).toBe(-1);
+    expect(plane.sign(new Vector(10, 0, 0))).toBe(1);
+    expect(plane.sign(new Vector(0, 0, 0))).toBe(0);
+  });
+
   test("split", () => {
     // Clip plane is Z Axis
     let plane = new Plane(UNIT_X, 0);
