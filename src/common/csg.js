@@ -12,6 +12,10 @@ export class CSG {
     this.polygons = polygons || [];
   }
 
+  material(mat) {
+    this.polygons.forEach(polygon => (polygon.material = mat));
+  }
+
   /**
    * Calculate the extends of the csg object.
    * @returns {Object}
